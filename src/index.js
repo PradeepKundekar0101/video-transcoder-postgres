@@ -1,6 +1,6 @@
 const { exec } = require('child_process');
 const { S3Client, GetObjectCommand, PutObjectCommand } = require('@aws-sdk/client-s3');
-import { PrismaClient } from "@prisma/client";
+const { PrismaClient } = require('@prisma/client');
 const fs = require('fs');
 const fsPromises = require('fs').promises;
 const path = require('path');
