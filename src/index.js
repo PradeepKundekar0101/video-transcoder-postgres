@@ -15,7 +15,7 @@ const localInputPath = `/tmp/${path.basename(videoFileKey)}`;
 const localOutputPath = `/tmp/processed_${path.basename(videoFileKey, path.extname(videoFileKey))}`;
 
 const mongoUri = process.env.MONGO_URI;
-const Video = require('./models/Video');
+
 
 const s3Client = new S3Client({
   region: process.env.AWS_REGION,
