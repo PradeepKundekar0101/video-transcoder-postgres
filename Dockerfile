@@ -14,6 +14,6 @@ COPY package*.json .
 RUN npm install
 
 COPY src/ src/
-COPY prisma/schema.prisma prisma/schema.prisma
+
 
 ENTRYPOINT [ "node", "src/index.js" ]
