@@ -1,20 +1,20 @@
 const { exec } = require('child_process');
 const { S3Client, GetObjectCommand, PutObjectCommand } = require('@aws-sdk/client-s3');
+import { PrismaClient } from "@prisma/client";
 const fs = require('fs');
 const fsPromises = require('fs').promises;
 const path = require('path');
 const { pipeline } = require('stream/promises');
 const mongoose = require('mongoose');
-const {prisma} = require("./config/prismaClient")
-require('dotenv').config();
 
+require('dotenv').config();
+const prisma =  new PrismaClient();
 const inputS3Url = process.env.INPUT_S3_URL;
 const outputBucket = process.env.OUTPUT_BUCKET_NAME;
 const videoFileKey = process.env.VIDEO_FILE_KEY;
 const localInputPath = `/tmp/${path.basename(videoFileKey)}`;
 const localOutputPath = `/tmp/processed_${path.basename(videoFileKey, path.extname(videoFileKey))}`;
 
-const mongoUri = process.env.MONGO_URI;
 
 
 const s3Client = new S3Client({
@@ -161,10 +161,6 @@ async function updateVideoInMongoDB(videoFileKey) {
 
 async function main() {
   try {
-    const { connection } = await mongoose.connect(mongoUri, {
-      dbName: "EarningEdge:Dev",
-    });
-    console.log(`MongoDB connected to ${connection.host}`);
 
     console.log(`Video file key: ${videoFileKey}`);
 
